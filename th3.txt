@@ -1,0 +1,29 @@
+create database quanlysinhvien;
+use quanlysinhvien;
+create table class(
+classid int not null auto_increment primary key,
+classname varchar(60) not null,
+startdate datetime not null,
+status bit
+);
+create table student(
+studentid int not null auto_increment primary key,
+studentname varchar(30) not null,
+adress varchar(50),
+phone varchar(20),
+status bit,
+classid int not null
+);
+create table subject(
+subid int not null auto_increment primary key,
+subname varchar(30) not null,
+credit tinyint not null default 1 check (credit >= 1),
+status bit default 1
+);
+create table mark(
+markid int not null auto_increment primary key,
+subid int not null unique key, foreign key (subid) references subject (subid), 
+studentid int not null unique key, foreign key (studentid) references student(studentid),
+mark float default 0 check ( mark between 0 and 100),
+examtime tinyint default 1
+);
